@@ -1,0 +1,108 @@
+./create_data_source.sh --name "MyDataSource" --domain-identifier "domain123" --environment-identifier "env456" --project-identifier "project789" --type "typeXYZ" 
+--description "Description of the data source" --enable-setting "ENABLED" --publish-on-import
+
+
+
+#!/bin/bash
+
+# Function to display usage information
+usage() {
+    echo "Usage: $0 --name <name> --domain-identifier <domain_id> --environment-identifier <env_id> --project-identifier <project_id> --type <type> [Options]"
+    echo "Options:"
+    echo "  --asset-forms-input <value>"
+    echo "  --client-token <value>"
+    echo "  --configuration <value>"
+    echo "  --description <value>"
+    echo "  --enable-setting <value>"
+    echo "  --no-publish-on-import"
+    echo "  --publish-on-import"
+    echo "  --recommendation <value>"
+    echo "  --schedule <value>"
+}
+
+# Parse command line options
+while [[ $# -gt 0 ]]; do
+    key="$1"
+    case $key in
+        --name)
+            name="$2"
+            shift
+            shift
+            ;;
+        --domain-identifier)
+            domain_identifier="$2"
+            shift
+            shift
+            ;;
+        --environment-identifier)
+            environment_identifier="$2"
+            shift
+            shift
+            ;;
+        --project-identifier)
+            project_identifier="$2"
+            shift
+            shift
+            ;;
+        --type)
+            type="$2"
+            shift
+            shift
+            ;;
+        --asset-forms-input)
+            asset_forms_input="--asset-forms-input \"$2\""
+            shift
+            shift
+            ;;
+        --client-token)
+            client_token="--client-token \"$2\""
+            shift
+            shift
+            ;;
+        --configuration)
+            configuration="--configuration \"$2\""
+            shift
+            shift
+            ;;
+        --description)
+            description="--description \"$2\""
+            shift
+            shift
+            ;;
+        --enable-setting)
+            enable_setting="--enable-setting \"$2\""
+            shift
+            shift
+            ;;
+        --no-publish-on-import)
+            publish_on_import="--no-publish-on-import"
+            shift
+            ;;
+        --publish-on-import)
+            publish_on_import="--publish-on-import"
+            shift
+            ;;
+        --recommendation)
+            recommendation="--recommendation \"$2\""
+            shift
+            shift
+            ;;
+        --schedule)
+            schedule="--schedule \"$2\""
+            shift
+            shift
+            ;;
+        --help)
+            usage
+            exit 0
+            ;;
+        *)
+            echo "Error: Unknown option $key"
+            usage
+            exit 1
+            ;;
+    esac
+done
+
+# Call AWS CLI command
+aws your-service-name-here create-data-source --name "$name" --domain-identifier "$domain_identifier" --environment-identifier "$environment_identifier" --project-identifier "$project_identifier" --type "$type" $asset_forms_input $client_token $configuration $description $enable_setting $publish_on_import $recommendation $schedule
