@@ -1,0 +1,116 @@
+import boto3
+from botocore.exceptions import ClientError
+
+class AWSDataZoneClient:
+    def __init__(self):
+        self.client = boto3.client('datazone')
+    
+    def create_glossary(self, domain_identifier, project_identifier, name, description='', status='ENABLED'):
+        try:
+            response = self.client.create_glossary(
+                domainIdentifier=domain_identifier,
+                owningProjectIdentifier=project_identifier,
+                name=name,
+                description=description,
+                status=status
+            )
+            print("Glossary created successfully:", response)
+            return response
+        except ClientError as e:
+            print("Error creating glossary:", e)
+            return None
+    
+    def create_form_type(self, domain_identifier, project_identifier, name, description='', status='ENABLED'):
+        try:
+            response = self.client.create_form_type(
+                domainIdentifier=domain_identifier,
+                owningProjectIdentifier=project_identifier,
+                name=name,
+                description=description,
+                status=status
+            )
+            print("Form type created successfully:", response)
+            return response
+        except ClientError as e:
+            print("Error creating form type:", e)
+            return None
+    
+    def create_data_source(self, asset_forms_input, client_token, configuration, description, domain_identifier,
+                           enable_setting, environment_identifier, name, project_identifier, publish_on_import,
+                           recommendation, schedule, data_source_type):
+        try:
+            response = self.client.create_data_source(
+                assetFormsInput=asset_forms_input,
+                clientToken=client_token,
+                configuration=configuration,
+                description=description,
+                domainIdentifier=domain_identifier,
+                enableSetting=enable_setting,
+                environmentIdentifier=environment_identifier,
+                name=name,
+                projectIdentifier=project_identifier,
+                publishOnImport=publish_on_import,
+                recommendation=recommendation,
+                schedule=schedule,
+                type=data_source_type
+            )
+            print("Data source created successfully:", response)
+            return response
+        except ClientError as e:
+            print("Error creating data source:", e)
+            return None
+
+# Example usage:
+datazone_client = AWSDataZoneClient()
+
+# Create a glossary
+datazone_client.create_glossary(
+    domain_identifier='example_domain_identifier',
+    project_identifier='example_project_identifier',
+    name='example_glossary_name',
+    description='example_description',
+    status='ENABLED'
+)
+
+# Create a form type
+datazone_client.create_form_type(
+    domain_identifier='example_domain_identifier',
+    project_identifier='example_project_identifier',
+    name='example_form_type_name',
+    description='example_description',
+    status='ENABLED'
+)
+
+# Create a data source
+datazone_client.create_data_source(
+    asset_forms_input=[{
+        'content': 'example_content',
+        'formName': 'example_form_name',
+        'typeIdentifier': 'example_type_identifier',
+        'typeRevision': 'example_type_revision'
+    }],
+    client_token='example_client_token',
+    configuration={
+        'glueRunConfiguration': {
+            'autoImportDataQualityResult': True,
+            'dataAccessRole': 'example_data_access_role',
+            'relationalFilterConfigurations': [
+                {
+                    'databaseName': 'example_database_name',
+                    'filterExpressions': [{'expression': 'example_expression', 'type': 'INCLUDE'}],
+                    'schemaName': 'example_schema_name'
+                }
+            ]
+        }
+    },
+    description='example_description',
+    domain_identifier='example_domain_identifier',
+    enable_setting='ENABLED',
+    environment_identifier='example_environment_identifier',
+    name='example_name',
+    project_identifier='example_project_identifier',
+    publish_on_import=True,
+    recommendation={'enableBusinessNameGeneration': True},
+    schedule={'schedule': 'example_schedule', 'timezone': 'UTC'},
+    data_source_type='example_type'
+)
