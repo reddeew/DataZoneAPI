@@ -1,4 +1,23 @@
 
+aws datazone create-form-type \
+    --description "Description of the form type" \
+    --domain-identifier "example-domain" \
+    --model '{"smithy": "example_model"}' \
+    --name "MyFormType" \
+    --owning-project-identifier "example-project" \
+    --status "ENABLED"
+
+
+
+aws datazone create-glossary \
+    --client-token "unique-client-token" \
+    --description "Description of the glossary" \
+    --domain-identifier "example-domain" \
+    --name "MyGlossary" \
+    --owning-project-identifier "example-project" \
+    --status "ENABLED"
+
+
 An error occurred (ValidationException) when calling the CreateDataSource operation: 1 validation error detected: Value at 'schedule.schedule' failed to satisfy constraint: Member must satisfy regular expression pattern: .*cron\((\b[0-5]?[0-9]\b) (\b2[0-3]\b|\b[0-1]?[0-9]\b) (.*){1,5} (.*){1,5} (.*){1,5} (.*){1,5}\).*
 
 
