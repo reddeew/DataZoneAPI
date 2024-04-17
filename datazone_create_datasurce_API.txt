@@ -1,3 +1,7 @@
+
+An error occurred (ValidationException) when calling the CreateDataSource operation: 1 validation error detected: Value at 'schedule.schedule' failed to satisfy constraint: Member must satisfy regular expression pattern: .*cron\((\b[0-5]?[0-9]\b) (\b2[0-3]\b|\b[0-1]?[0-9]\b) (.*){1,5} (.*){1,5} (.*){1,5} (.*){1,5}\).*
+
+
 aws datazone create-data-source \
     --name "MyDataSource" \
     --domain-identifier "example-domain" \
