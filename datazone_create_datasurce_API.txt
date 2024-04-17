@@ -1,3 +1,20 @@
+aws datazone create-data-source \
+    --name "MyDataSource" \
+    --domain-identifier "example-domain" \
+    --environment-identifier "example-env" \
+    --project-identifier "example-project" \
+    --type "glue" \
+    --description "My data source description" \
+    --enable-setting "ENABLED" \
+    --no-publish-on-import \
+    --schedule '{"schedule": "0 0 * * *", "timezone": "UTC"}' \
+    --asset-forms-input '[{"content": "sample_content", "formName": "form1", "typeIdentifier": "type1", "typeRevision": "1"}]' \
+    --recommendation '{"enableBusinessNameGeneration": true}' \
+    --configuration '{"glueRunConfiguration": {"autoImportDataQualityResult": true, "dataAccessRole": "arn:aws:iam::123456789012:role/DataZoneGlueRole", "relationalFilterConfigurations": [{"databaseName": "example_db", "filterExpressions": [{"expression": "example_expression", "type": "INCLUDE"}], "schemaName": "example_schema"}]}}'
+
+
+
+
 ./create_data_source.sh --name "MyDataSource" --domain-identifier "domain123" --environment-identifier "env456" --project-identifier "project789" --type "typeXYZ" 
 --description "Description of the data source" --enable-setting "ENABLED" --publish-on-import
 
