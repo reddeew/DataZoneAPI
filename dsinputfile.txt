@@ -1,0 +1,50 @@
+{
+  "create_glossary": {
+    "domain_identifier": "example_domain_identifier",
+    "project_identifier": "example_project_identifier",
+    "name": "example_glossary_name",
+    "description": "example_description",
+    "status": "ENABLED"
+  },
+  "create_form_type": {
+    "domain_identifier": "example_domain_identifier",
+    "project_identifier": "example_project_identifier",
+    "name": "example_form_type_name",
+    "description": "example_description",
+    "status": "ENABLED"
+  },
+  "create_data_source": {
+    "asset_forms_input": [
+      {
+        "content": "example_content",
+        "formName": "example_form_name",
+        "typeIdentifier": "example_type_identifier",
+        "typeRevision": "example_type_revision"
+      }
+    ],
+    "client_token": "example_client_token",
+    "configuration": {
+      "glueRunConfiguration": {
+        "autoImportDataQualityResult": true,
+        "dataAccessRole": "example_data_access_role",
+        "relationalFilterConfigurations": [
+          {
+            "databaseName": "example_database_name",
+            "filterExpressions": [{"expression": "example_expression", "type": "INCLUDE"}],
+            "schemaName": "example_schema_name"
+          }
+        ]
+      }
+    },
+    "description": "example_description",
+    "domain_identifier": "example_domain_identifier",
+    "enable_setting": "ENABLED",
+    "environment_identifier": "example_environment_identifier",
+    "name": "example_name",
+    "project_identifier": "example_project_identifier",
+    "publish_on_import": true,
+    "recommendation": {"enableBusinessNameGeneration": true},
+    "schedule": {"schedule": "example_schedule", "timezone": "UTC"},
+    "data_source_type": "example_type"
+  }
+}

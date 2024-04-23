@@ -1,0 +1,83 @@
+import json
+import boto3
+from botocore.exceptions import ClientError
+
+class AWSDataZoneClient:
+    def __init__(self):
+        self.client = boto3.client('datazone')
+    
+    def create_glossary(self, domain_identifier, project_identifier, name, description='', status='ENABLED'):
+        try:
+            response = self.client.create_glossary(
+                domainIdentifier=domain_identifier,
+                owningProjectIdentifier=project_identifier,
+                name=name,
+                description=description,
+                status=status
+            )
+            print("Glossary created successfully:", response)
+            return response
+        except ClientError as e:
+            print("Error creating glossary:", e)
+            return None
+    
+    def create_form_type(self, domain_identifier, project_identifier, name, description='', status='ENABLED'):
+        try:
+            response = self.client.create_form_type(
+                domainIdentifier=domain_identifier,
+                owningProjectIdentifier=project_identifier,
+                name=name,
+                description=description,
+                status=status
+            )
+            print("Form type created successfully:", response)
+            return response
+        except ClientError as e:
+            print("Error creating form type:", e)
+            return None
+    
+    def create_data_source(self, asset_forms_input, client_token, configuration, description, domain_identifier,
+                           enable_setting, environment_identifier, name, project_identifier, publish_on_import,
+                           recommendation, schedule, data_source_type):
+        try:
+            response = self.client.create_data_source(
+                assetFormsInput=asset_forms_input,
+                clientToken=client_token,
+                configuration=configuration,
+                description=description,
+                domainIdentifier=domain_identifier,
+                enableSetting=enable_setting,
+                environmentIdentifier=environment_identifier,
+                name=name,
+                projectIdentifier=project_identifier,
+                publishOnImport=publish_on_import,
+                recommendation=recommendation,
+                schedule=schedule,
+                type=data_source_type
+            )
+            print("Data source created successfully:", response)
+            return response
+        except ClientError as e:
+            print("Error creating data source:", e)
+            return None
+
+    def create_from_file(self, file_path):
+        try:
+            with open(file_path, 'r') as file:
+                data = json.load(file)
+            if 'create_glossary' in data:
+                self.create_glossary(**data['create_glossary'])
+            if 'create_form_type' in data:
+                self.create_form_type(**data['create_form_type'])
+            if 'create_data_source' in data:
+                self.create_data_source(**data['create_data_source'])
+        except FileNotFoundError:
+            print(f"File {file_path} not found.")
+        except json.JSONDecodeError:
+            print(f"Invalid JSON format in file {file_path}.")
+        except Exception as e:
+            print(f"Error processing file {file_path}: {e}")
+
+# Example usage:
+datazone_client = AWSDataZoneClient()
+datazone_client.create_from_file('input.json')
